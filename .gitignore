@@ -2,3 +2,5 @@
 /.vscode
 #generate files
 /build/*
+#test files
+/src/test.cpp
