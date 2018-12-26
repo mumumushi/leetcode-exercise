@@ -1,2 +1,4 @@
+#local configure files
 /.vscode
+#generate files
 /build/*
