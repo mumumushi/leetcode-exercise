@@ -1,15 +1,6 @@
-<<<<<<< HEAD
 #local configure files
 /.vscode
 #generate files
 /build/*
 #test files
 /src/test.cpp
-=======
-#local configure files
-/.vscode
-#generate files
-/build/*
-#test files
-/src/test.cpp
->>>>>>> 4f55d95c6de050681c7345f79000c3865236e6d2
