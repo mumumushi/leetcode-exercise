@@ -20,18 +20,23 @@ using namespace std;
 class Solution {
 public:
     double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
-        int m = (nums1.size()+nums2.size()-1) / 2;
+        int m = (nums1.size()+nums2.size()-1) / 2 + 1;
         bool flag_even = false; 
         if ((nums1.size()+nums2.size()-1)%2 == 1)   flag_even = true;
         
         int i = 0, j = 0;
-        int l = -1;
-        while(l < m) {
+        int l = 0;
+        while(++l < m) {
             if      (nums1[i] < nums2[j])     i++;
             else if (nums1[i] >= nums2[j])    j++;
-            l++;
         }
-        return m;
+        if (flag_even) {
+            //想办法提取两个值出来
+            double ans = (nums1[i] < nums2[j]) ? nums1[i++] : nums2[j++];
+            return (ans+((nums1[i] < nums2[j]) ? nums1[i] : nums2[j])) / 2;
+        } else {
+            return (nums1[i] < nums2[j]) ? nums1[i] : nums2[j];
+        }
     }
 };
 
