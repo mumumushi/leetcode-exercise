@@ -1,2 +1,2 @@
-# leet-exercise
+# leetcode-exercise
 leetcode exercise
