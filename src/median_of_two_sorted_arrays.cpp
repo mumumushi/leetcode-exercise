@@ -20,31 +20,41 @@ using namespace std;
 class Solution {
 public:
     double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
-        int m = (nums1.size()+nums2.size()-1) / 2 + 1;
-        bool flag_even = false; 
-        if ((nums1.size()+nums2.size()-1)%2 == 1)   flag_even = true;
-        
-        int i = 0, j = 0;
-        int l = 0;
-        while(++l < m) {
-            if      (nums1[i] < nums2[j])     i++;
-            else if (nums1[i] >= nums2[j])    j++;
-        }
-        if (flag_even) {
-            //想办法提取两个值出来
-            double ans = (nums1[i] < nums2[j]) ? nums1[i++] : nums2[j++];
-            return (ans+((nums1[i] < nums2[j]) ? nums1[i] : nums2[j])) / 2;
+        if (nums1.empty() || nums2.empty()) {
+            if (nums1.empty())  nums1.swap(nums2);      //把非空的vector换到nums1
+            //取出中间值
+            if (nums1.size()%2 == 0) {
+                double ans = nums1[(nums1.size()-1)/2] + nums1[(nums1.size()-1)/2 +1];
+                return ans / 2;
+            } else 
+                return nums1[(nums1.size()-1)/2];
         } else {
-            return (nums1[i] < nums2[j]) ? nums1[i] : nums2[j];
+            int m = (nums1.size()+nums2.size()-1) / 2 + 1;
+            bool flag_even = false; 
+            if ((nums1.size()+nums2.size()-1)%2 == 1)   flag_even = true;
+            
+            int i = 0, j = 0;
+            int l = 0;
+            while(++l < m) {
+                if      (nums1[i] < nums2[j])     i++;
+                else if (nums1[i] >= nums2[j])    j++;
+            }
+            if (flag_even) {
+                double ans = (nums1[i] < nums2[j]) ? nums1[i++] : nums2[j++];
+                return (ans+((nums1[i] < nums2[j]) ? nums1[i] : nums2[j])) / 2;
+            } else {
+                return (nums1[i] < nums2[j]) ? nums1[i] : nums2[j];
+            }
         }
+        
     }
 };
 
 int main(void) {
-    vector<int> nums1 = {1, 3, 5, 7};
-    vector<int> nums2 = {2, 4};
-    Solution s;
-    double ans = s.findMedianSortedArrays(nums1, nums2);
+    vector<int> nums1 = {1,2};
+    vector<int> nums2 = {3,4};
+
+    double ans = Solution().findMedianSortedArrays(nums1, nums2);
     cout << ans << endl;
     return 0;
 }
