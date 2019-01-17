@@ -1,5 +1,8 @@
-#ifdef _HEAD_H_
+#ifndef _HEAD_H_
 #define _HEAD_H_
-#include<iostream>
 //nothing
+#include<iostream>
+#include<vector>
+#include<string>
+
 #endif
