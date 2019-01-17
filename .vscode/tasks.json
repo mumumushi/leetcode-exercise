@@ -1,0 +1,40 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "g++",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "-g",
+                "${file}",
+                "-o",
+                "${workspaceFolder}/build/${fileBasenameNoExtension}.exe"
+            ],
+            "problemMatcher": "$gcc"
+        },
+        {
+            "label": "gcc",
+            "type": "shell",
+            "command": "gcc",
+            "args": [
+                "-g",
+                "${file}",
+                "-o",
+                "${workspaceFolder}/build/${fileBasenameNoExtension}.exe"
+            ],
+            "problemMatcher": "$gcc"
+        },
+        {
+            "label": "remove build",
+            "type": "shell",
+            "command": "rm",
+            "args": [
+                "build/*.exe"
+            ],
+            "problemMatcher": []
+        }
+    ]
+}
