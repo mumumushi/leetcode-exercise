@@ -1,5 +1,5 @@
 #local configure files
-/.vscode
+/.vscode/settings.json
 #generate files
 /build/*
 #test files
