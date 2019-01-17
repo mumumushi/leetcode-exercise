@@ -1,6 +1,6 @@
 #local configure files
 /.vscode/settings.json
 #generate files
-/build/*
+/build/*.exe
 #test files
 /src/test.cpp
