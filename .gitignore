@@ -2,5 +2,6 @@
 /.vscode/settings.json
 #generate files
 /build/*.exe
+!/build/test.exe
 #test files
 /src/test.cpp
