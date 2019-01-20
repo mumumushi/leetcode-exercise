@@ -52,13 +52,107 @@ using namespace std;
 class Solution {
 public:
     bool isMatch(string s, string p) {
-        return false;
+        /*int len1 = s.length(), len2 = p.length();
+        int m = 0, n = 0;
+        char a = '\0', b = '\0';
+        bool isFinishS = false;
+        while (m < len1 && n < len2) {
+            a = s[m];
+            b = p[n];
+
+            if (a != b) {
+                if (b == '.') {                   //  .*  一起出现的情况
+                    if (p[n+1] == '*') {
+                        n += 2;
+                        m = len1;
+                    } else {
+                        m++; n++;
+                    }
+                        
+                } else if (p[n+1] == '*' && n+1 < len2) { //  X*  出现，即重复了零次
+                    n += 2;
+                    if (isFinishS) m = len1;
+                }        
+                else                             //不同，false
+                    return false;
+
+            } else {                             //普通相同
+                if (p[n+1] == '*' && n+1 < len2) {             //相同且 x*重复多次
+                    n += 2;
+                    m++;
+                    while (s[m] == a && m < len1)
+                        m++;
+                    while (p[n] == a && n < len2)   
+                        n++;
+                } else {
+                    m++; n++;
+                }
+            }
+            if (m == len1 && n < len2) {
+                isFinishS = true;
+                int tmp = n;
+                m = m - 1;
+                while (p[tmp] >= 'a' && p[tmp] <= 'z' && tmp < len2)
+                    tmp++;
+                if (tmp == len2)
+                    return false;
+            }
+        }
+        return (m == len1) && (n == len2);*/
+        int len1 = s.length(), len2 = p.length();
+        int m = 0, n = 0;
+        char a = '\0', b = '\0';
+        bool isFinishS = false;
+        while (m < len1 && n < len2) {
+            a = s[m];
+            b = p[n];
+
+            if (a != b) {
+                if (b == '.') {                   //  .*  一起出现的情况
+                    if (p[n+1] == '*') {
+                        n += 2;
+                        m = len1;
+                    } else {
+                        m++; n++;
+                    }
+                        
+                } else if (p[n+1] == '*' && n+1 < len2) { //  X*  出现，即重复了零次
+                    n += 2;
+                    if (isFinishS) m = len1;
+                }        
+                else                             //不同，false
+                    return false;
+
+            } else {                             //普通相同
+                if (p[n+1] == '*' && n+1 < len2) {             //相同且 x*重复多次
+                    n += 2;
+                    m++;
+                    while (s[m] == a && m < len1)
+                        m++;
+                    while (p[n] == a && n < len2)   
+                        n++;
+                } else {
+                    m++; n++;
+                }
+            }
+            if (m == len1 && n < len2) {
+                isFinishS = true;
+                int tmp = n;
+                m = m - 1;
+                while (p[tmp] >= 'a' && p[tmp] <= 'z' && tmp < len2)
+                    tmp++;
+                if (tmp == len2 && p[tmp-1] != a)
+                    return false;
+            }
+        }
+        if (isFinishS)    m = len1;
+        return (m == len1) && (n == len2);
     }
 };
 
 int main() {
-    string s = "aab";
-    string p = "c*a*b";
+    string s = "aaa";
+    string p = "aaaa";
     cout << "s = " << s << endl << "p = " << p << endl;
     cout << Solution().isMatch(s, p) << endl;
     return 0;
