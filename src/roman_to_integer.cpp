@@ -57,12 +57,62 @@ class Solution {
 public:
     int romanToInt(string s) {
         int ans = 0;
+        int len = s.size();
+        int index = 0;
+        while (index < len) {
+            switch(s[index]) {
+                case 'M':{
+                    ans = ans + 1000;
+                    index++;
+                }break;
+                case 'D':{
+                    ans = ans + 500;
+                    index++;
+                }break;
+                case 'C':{
+                    if (index+1<len) {
+                        char c = s[index+1];
+                        if      (c == 'M')  {  ans+=800;  index++;  }
+                        else if (c == 'D')  {  ans+=300;  index++;  }
+                    }
+                    ans = ans + 100;
+                    index++;
+                }break;
+                case 'L':{
+                    ans = ans + 50;
+                    index++;
+                }break;
+                case 'X':{
+                    if (index+1 < len) {
+                        char x = s[index+1];
+                        if      (x == 'C')  {  ans+=80;  index++;  }
+                        else if (x == 'L')  {  ans+=30;  index++;  }
+                    }
+                    ans = ans + 10;
+                    index++;
+                }break;
+                case 'V':{
+                    ans = ans + 5;
+                    index++;
+                }break;
+                case 'I':{
+                    if (index+1 < len) {
+                        char i = s[index+1];
+                        if      (i == 'X')  {  ans+=8;  index++;  }
+                        else if (i == 'V')  {  ans+=3;  index++;  }
+                    }
+                    ans = ans + 1;
+                    index++;
+                }break;
+                default:    return 0;
+            }
+        }
         return ans;
     }
 };
 
 int main() {
-    string s = "LVIII";
+    string s = "IV";
     cout << s << endl << Solution().romanToInt(s) << endl;
     return 0;
 }
