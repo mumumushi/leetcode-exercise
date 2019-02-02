@@ -22,10 +22,20 @@ using namespace std;
 class Solution {
 public:
     int maxArea(vector<int>& height) {
-        
+        int maxArea = 0;
+        int area = 0;
+        for (int i=0; i < height.size()-1; i++)
+            for (int j=i+1; j <height.size(); j++) {
+                area = (j - i) * (height[i] < height[j] ? height[i] : height[j]);
+                if (area > maxArea)
+                    maxArea = area;
+            }
+        return maxArea;
     }
 };
 
 int main() {
+    vector<int> height = {1, 8, 6, 2, 5, 4, 8, 3, 7};
+    cout << Solution().maxArea(height) << endl;
     return 0;
 }
