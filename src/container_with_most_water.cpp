@@ -22,7 +22,8 @@ using namespace std;
 class Solution {
 public:
     int maxArea(vector<int>& height) {
-        int maxArea = 0;
+        //暴力N^2的解法
+        /*int maxArea = 0;
         int area = 0;
         for (int i=0; i < height.size()-1; i++)
             for (int j=i+1; j <height.size(); j++) {
@@ -30,6 +31,31 @@ public:
                 if (area > maxArea)
                     maxArea = area;
             }
+        return maxArea;*/
+        //解题思路，在（j-i）变小的情况下，需要确保low变高了
+        int maxArea = 0;    
+        int area = 0;
+        int i = 0;
+        int j = height.size() - 1;
+        int low = 0;
+        while(i < j) {
+            if (height[i]<height[j]) {
+                low = height[i];
+                area = (j-i) * low;
+                if (area > maxArea)
+                    maxArea = area;
+                while (i<j && height[i]<=low)
+                    i++;
+            }    
+            else {
+                low = height[j];
+                area = (j-i) * low;
+                if (area > maxArea)
+                    maxArea = area;
+                while (i<j && height[j]<=low)
+                    j--;
+            }
+        }
         return maxArea;
     }
 };
