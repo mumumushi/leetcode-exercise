@@ -33,34 +33,41 @@ class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
         vector<vector<int>> sum = {};
-        int n = nums.size();
-        if (n < 3)  return sum;
+        int N = nums.size();
+        if (N < 3)  return sum;
+        int x;  //x?????
 
-        //插入排序
-        for (int i = 1; i < n; i++) {
-            for (int j = i; j > 0; j--) {
-                if (nums[j] < nums[j-1]) {
-                    int t = nums[j];
-                    nums[j] = nums[j-1];
-                    nums[j-1] = t;
-                } else break; 
+        //????
+        int h = 1;
+        while (h < N/3) h = 3*h + 1;        //1,4,13,40,121,363,1093,...
+        while (h >= 1) {
+            for (int i = h; i < N; i++) {
+                for (int j = i; j >= h; j -= h) {
+                    if (nums[j] < nums[j-1]) {
+                        x = nums[j];
+                        nums[j] = nums[j-1];
+                        nums[j-1] = x;
+                    } else break; 
+                }
             }
+            h = h / 3;
         }
+
         int a,b,c;
-        for (int i = 0; i < n-2; i++) {
+        for (int i = 0; i < N-2; i++) {
             a = nums[i];
             if (a > 0)  break;
-            for (int j = i+1; j < n-1; j++) {
+            for (int j = i+1; j < N-1; j++) {
                 b = nums[j];
                 if (a + b > 0)  break;
-                for (int k = j+1; k < n; k++) {
+                for (int k = j+1; k < N; k++) {
                     c = nums[k];
                     if (a + b + c == 0) {
                         vector<int> tmp = {};
                         tmp.push_back(a);
                         tmp.push_back(b);
                         tmp.push_back(c);
-                        int x = sum.size() - 1;
+                        x = sum.size() - 1;
                         bool isNotExist = true;
                         while (x >= 0 && isNotExist) {
                             if (tmp == sum[x--])
