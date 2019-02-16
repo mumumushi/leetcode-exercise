@@ -28,6 +28,7 @@
 */
 #include<iostream>
 #include<vector>
+#include<algorithm>
 using namespace std;
 class Solution {
 public:
@@ -35,9 +36,9 @@ public:
         vector<vector<int>> sum = {};
         int N = nums.size();
         if (N < 3)  return sum;
-        int x;  //x?????
-
-        //????
+        int x;  //x的作用很多
+        sort(nums.begin(), nums.end());     //排序
+        /*希尔排序
         int h = 1;
         while (h < N/3) h = 3*h + 1;        //1,4,13,40,121,363,1093,...
         while (h >= 1) {
@@ -47,13 +48,17 @@ public:
                         x = nums[j];
                         nums[j] = nums[j-1];
                         nums[j-1] = x;
+                    } else if (nums[j] == nums[j-1]) {
+                        if (nums[j] == 0)
+                        else  
                     } else break; 
                 }
             }
             h = h / 3;
-        }
+        }*/
 
         int a,b,c;
+        vector<int> tmp = {};
         for (int i = 0; i < N-2; i++) {
             a = nums[i];
             if (a > 0)  break;
@@ -62,19 +67,21 @@ public:
                 if (a + b > 0)  break;
                 for (int k = j+1; k < N; k++) {
                     c = nums[k];
-                    if (a + b + c == 0) {
-                        vector<int> tmp = {};
-                        tmp.push_back(a);
-                        tmp.push_back(b);
-                        tmp.push_back(c);
-                        x = sum.size() - 1;
+                    if (a + b == -c) {
+                        int x = sum.size() - 1;
                         bool isNotExist = true;
                         while (x >= 0 && isNotExist) {
-                            if (tmp == sum[x--])
-                                isNotExist = false;
+                            if (a != sum[x][0])         break;
+                            else if (b == sum[x][1])    isNotExist = false;
+                            x--;
                         }
-                        if (isNotExist)
+                        if (isNotExist) {
+                            tmp.push_back(a);
+                            tmp.push_back(b);
+                            tmp.push_back(c);
                             sum.push_back(tmp);
+                            tmp.clear();
+                        }
                     }
                 }
             }
