@@ -20,11 +20,13 @@ public:
         if (nums.size() < 3)    return closest;
         sort(nums.begin(), nums.end());
         for (auto i = nums.begin(); i != nums.end()-2; i++) {
+
             for (auto j = i+1; j != nums.end()-1; j++) {
                 for(auto  k = j+1; k != nums.end(); k++) {
-                    if (abs(*i+*j+*k-target) < min)
+                    if (abs(*i+*j+*k-target) < min) {
                         closest = *i + *j + *k;
                         min = abs(closest-target);
+                    }
                 }
             }
         }
