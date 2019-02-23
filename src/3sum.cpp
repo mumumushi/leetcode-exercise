@@ -34,54 +34,27 @@ class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
         vector<vector<int>> sum = {};
-        int N = nums.size();
-        if (N < 3)  return sum;
-        int x;  //x的作用很多
+        if (nums.size() < 3)  return sum;
         sort(nums.begin(), nums.end());     //排序
-        /*希尔排序
-        int h = 1;
-        while (h < N/3) h = 3*h + 1;        //1,4,13,40,121,363,1093,...
-        while (h >= 1) {
-            for (int i = h; i < N; i++) {
-                for (int j = i; j >= h; j -= h) {
-                    if (nums[j] < nums[j-1]) {
-                        x = nums[j];
-                        nums[j] = nums[j-1];
-                        nums[j-1] = x;
-                    } else if (nums[j] == nums[j-1]) {
-                        if (nums[j] == 0)
-                        else  
-                    } else break; 
-                }
-            }
-            h = h / 3;
-        }*/
 
         int a,b,c;
         vector<int> tmp = {};
-        for (int i = 0; i < N-2; i++) {
-            a = nums[i];
-            if (a > 0)  break;
-            for (int j = i+1; j < N-1; j++) {
-                b = nums[j];
+        vector<int>::iterator i,j;
+        for (i = nums.begin(); i != nums.end()-2; i++) {
+            a = *i;
+            if (a > 0)          break;
+            for (j = i+1; j != nums.end()-1; j++) {
+                b = *j;
                 if (a + b > 0)  break;
-                for (int k = j+1; k < N; k++) {
-                    c = nums[k];
-                    if (a + b == -c) {
-                        int x = sum.size() - 1;
-                        bool isNotExist = true;
-                        while (x >= 0 && isNotExist) {
-                            if (a != sum[x][0])         break;
-                            else if (b == sum[x][1])    isNotExist = false;
-                            x--;
-                        }
-                        if (isNotExist) {
-                            tmp.push_back(a);
-                            tmp.push_back(b);
-                            tmp.push_back(c);
+                else {                    //a，b，二分查找c
+                    c = 0 - a - b;
+                    if (binary_search(j+1, nums.end(), c)) {
+                        tmp.push_back(a);
+                        tmp.push_back(b);
+                        tmp.push_back(c);
+                        if (!binary_search(sum.begin(), sum.end(), tmp))
                             sum.push_back(tmp);
-                            tmp.clear();
-                        }
+                        tmp.clear();
                     }
                 }
             }
