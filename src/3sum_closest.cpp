@@ -16,6 +16,18 @@ class Solution {
 public:
     int threeSumClosest(vector<int>& nums, int target) {
         int closest = 0;
+        int min = INT32_MAX;
+        if (nums.size() < 3)    return closest;
+        sort(nums.begin(), nums.end());
+        for (auto i = nums.begin(); i != nums.end()-2; i++) {
+            for (auto j = i+1; j != nums.end()-1; j++) {
+                for(auto  k = j+1; k != nums.end(); k++) {
+                    if (abs(*i+*j+*k-target) < min)
+                        closest = *i + *j + *k;
+                        min = abs(closest-target);
+                }
+            }
+        }
         return closest;
     }
 };
