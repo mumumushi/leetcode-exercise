@@ -20,7 +20,7 @@ public:
         if (nums.size() < 3)    return closest;
         sort(nums.begin(), nums.end());
         for (auto i = nums.begin(); i != nums.end()-2; i++) {
-
+            if (i != nums.begin() && *i == *(i-1))    continue;
             for (auto j = i+1; j != nums.end()-1; j++) {
                 for(auto  k = j+1; k != nums.end(); k++) {
                     if (abs(*i+*j+*k-target) < min) {
@@ -35,8 +35,8 @@ public:
 };
 
 int main() {
-    vector<int> nums = {-1,2,1,-4};
-    int target = 1;
+    vector<int> nums = {-1,2,1,-4,6};
+    int target = 8;
     for (auto i : nums)
         cout << i << " ";
     cout << endl;
