@@ -33,11 +33,38 @@ using namespace std;
 class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
-        vector<vector<int>> sum = {};
+        vector<vector<int>> sum = {};       /*参考3sum_closest的一种思路，但速度差不多，内存消耗还大了。。*/
         if (nums.size() < 3)  return sum;
         sort(nums.begin(), nums.end());     //排序
 
-        int a,b,c;
+        for (int i = 0; i < nums.size() - 2; i++) {
+            if (nums[i] > 0)    break;
+            if (i != 0 && nums[i] == nums[i-1]) continue;
+            int t = nums[i] * -1;
+            int a = i + 1;
+            int b = nums.size() - 1;
+            while (a < b) {
+                int s = nums[a] + nums[b];
+                if (s < t) { 
+                    do    a++;
+                    while (a < nums.size() && nums[a] == nums[a-1]);
+                } else if (s > t) {
+                    do    b--;
+                    while (b > 0 && nums[b] == nums[b+1]);
+                } else {
+                    vector<int> tmp = {};
+                    tmp.push_back(nums[i]);
+                    tmp.push_back(nums[a]);
+                    tmp.push_back(nums[b]);
+                    sum.push_back(tmp);
+                    do    a++;
+                    while (a < nums.size() && nums[a] == nums[a-1]);
+                    b = nums.size() - 1;
+                }
+            }
+        }
+        return sum;
+        /*int a,b,c;
         vector<int> tmp = {};
         vector<int>::iterator i,j;
         for (i = nums.begin(); i != nums.end()-2; i++) {
@@ -59,7 +86,7 @@ public:
                 }
             }
         }
-        return sum;
+        return sum;*/
     }
 }; 
 
@@ -70,7 +97,7 @@ int main() {
     for (it = nums.begin(); it != nums.end(); it++)
         cout << *it << " ";
     cout << endl;*/
-    vector<vector<int>> ans = Solution().threeSum(nums2);
+    vector<vector<int>> ans = Solution().threeSum(nums);
     int i = 0, j = 0;
     for (i = 0; i < ans.size(); i++) {
         for (j = 0; j < ans[i].size(); j++)
