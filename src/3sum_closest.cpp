@@ -11,21 +11,33 @@
 #include<iostream>
 #include<vector>
 #include<algorithm>
-using namespace std;
+using namespace std; 
 class Solution {
 public:
     int threeSumClosest(vector<int>& nums, int target) {
         int closest = 0;
-        int min = INT32_MAX;
+        int min_diff = INT32_MAX;
         if (nums.size() < 3)    return closest;
         sort(nums.begin(), nums.end());
+
+        int a,b,c,cur_diff,pre_diff;
         for (auto i = nums.begin(); i != nums.end()-2; i++) {
-            if (i != nums.begin() && *i == *(i-1))    continue;
+            a = *i;
+            if (i != nums.begin() && a == *(i-1))    continue;
             for (auto j = i+1; j != nums.end()-1; j++) {
-                for(auto  k = j+1; k != nums.end(); k++) {
-                    if (abs(*i+*j+*k-target) < min) {
-                        closest = *i + *j + *k;
-                        min = abs(closest-target);
+                b = *j;
+                if (j != i+1 && b == *(j-1))    continue;
+                pre_diff = INT32_MAX;
+                for(auto k = j+1; k != nums.end(); k++) {
+                    c = *k;
+                    cur_diff = abs(a+b+c-target);
+                    if      (cur_diff > pre_diff)    break;
+                    else if (cur_diff < min_diff) {
+                        closest = a + b + c; 
+                        min_diff = cur_diff;
+                        pre_diff = cur_diff;
+                    } else {
+                        pre_diff = cur_diff;
                     }
                 }
             }
@@ -35,8 +47,8 @@ public:
 };
 
 int main() {
-    vector<int> nums = {-1,2,1,-4,6};
-    int target = 8;
+    vector<int> nums = {-1,2,1,-4};
+    int target = 1;
     for (auto i : nums)
         cout << i << " ";
     cout << endl;
