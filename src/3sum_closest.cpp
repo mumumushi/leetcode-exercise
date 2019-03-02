@@ -15,11 +15,31 @@ using namespace std;
 class Solution {
 public:
     int threeSumClosest(vector<int>& nums, int target) {
-        int closest = 0;
-        int min_diff = INT32_MAX;
+        sort(nums.begin(), nums.end());
+        if (nums.size() < 3)    return 0;
+        int min = nums[0] + nums[1] + nums[2];
+
+        for (int i = 0; i < nums.size() - 2; i++){
+            int a = i + 1;
+            int b = nums.size() - 1;
+            while (a < b) {
+                int sum = nums[i] + nums[a] + nums[b];
+                if (abs(sum - target) < abs(min - target))
+                    min = sum;
+                else if (sum > target)
+                    b--;
+                else if (sum < target)
+                    a++;
+                else 
+                    return target;
+            }
+        }
+        return min;
+        /*int closest = 0;
         if (nums.size() < 3)    return closest;
         sort(nums.begin(), nums.end());
-
+        
+        int min_diff = INT32_MAX;
         int a,b,c,cur_diff,pre_diff;
         for (auto i = nums.begin(); i != nums.end()-2; i++) {
             a = *i;
@@ -42,7 +62,7 @@ public:
                 }
             }
         }
-        return closest;
+        return closest;*/
     }
 };
 
