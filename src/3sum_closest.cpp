@@ -15,7 +15,7 @@ using namespace std;
 class Solution {
 public:
     int threeSumClosest(vector<int>& nums, int target) {
-        sort(nums.begin(), nums.end());
+        sort(nums.begin(), nums.end());                 /*别人的解法，只做一遍历遍，内部做双向指针*/
         if (nums.size() < 3)    return 0;
         int min = nums[0] + nums[1] + nums[2];
 
