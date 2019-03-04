@@ -47,6 +47,15 @@ int main() {
 
     queen(0, s);
     
+    /*打印一种解法*/
+    s = ans[0];
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            if (j == s[i])    cout << 1 << " ";
+            else              cout << 0 << " ";
+        }
+        cout << endl;
+    }
     cout << endl;
     return 0;
 }
