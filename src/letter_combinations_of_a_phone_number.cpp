@@ -28,12 +28,31 @@
 #include<iostream>
 #include<vector>
 #include<string>
+#include<map>
 using namespace std;
 
 class Solution {
 public:
+
+    vector<string> ans    = {};
+    vector<string> codes = {" ", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+
+    void combine(string digits, int index, string s) {
+        if (index == digits.size()) {
+            ans.push_back(s);
+            return ;
+        }
+
+        string code = codes[digits[index] - '0'];
+
+        for(int i = 0; i < code.size(); i++)
+            combine(digits, index+1, s+code[i]);
+    }
+
     vector<string> letterCombinations(string digits) {
-        vector<string> ans = {};
+        if (digits.size() == 0)
+            return ans;
+        combine(digits, 0, "");
         return ans;
     }
 };
@@ -42,6 +61,7 @@ int main() {
     string digits = "23";
     cout << digits << endl;
     vector<string> ans = Solution().letterCombinations(digits);
+
     for (auto i = ans.begin(); i != ans.end(); i++)
         cout << *i << " ";
     cout << endl;
