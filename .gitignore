@@ -1,5 +1,6 @@
 #local configure files
 /.vscode/settings.json
+/.vscode/ipch
 #generate files
 /build/*.exe
 #!/build/test.exe
