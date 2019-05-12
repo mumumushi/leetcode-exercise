@@ -19,7 +19,24 @@ struct ListNode {
 class Solution {
 public:
     ListNode* removeNthFromEnd(ListNode* head, int n) {
-        ListNode* ptr = head;
+        /*一次遍历，快慢指针实现，快指针先走n步，然后快慢指针一起走
+        知道快指针历遍完，注意判断头与尾*/
+        ListNode* p = head, *q = NULL;
+        int k = 1;
+        while (k != n && p != NULL) {
+            k++;
+            p = p->next;
+        } 
+        if (p->next == NULL)    return head->next;  //删除头部，尾部的情况
+        else                    p = p->next;
+        q = head;
+        while (p->next != NULL) {
+            p = p->next;
+            q = q->next;
+        }
+        q->next = q->next->next;
+        return head;
+        /*ListNode* ptr = head; //两次历遍，但是leetcode上结果错了，原因暂时不明
         int len;
         while (ptr != NULL) {
             len++;
@@ -37,17 +54,17 @@ public:
         if (ptr != NULL && ptr->next != NULL)
             ptr->next = ptr->next->next;
 
-        return head;
+        return head;*/
     }
 };
 
 int main(void) {
     ListNode l1(1), l2(2), l3(3), l4(4), l5(5), l6(6);
-    l1.next = &l2;
-    l2.next = &l3;
-    l3.next = &l4;
-    l4.next = &l5;
-    // l5.next = &l6;
+    // l1.next = &l2;
+    // l2.next = &l3;
+    // l3.next = &l4;
+    // l4.next = &l5;
+
 
     ListNode* ptr = &l1;
     while (ptr != NULL) {
@@ -56,7 +73,7 @@ int main(void) {
     }
     cout << endl;
     Solution s;
-    ptr = s.removeNthFromEnd(&l1, 2);
+    ptr = s.removeNthFromEnd(&l1, 1);
     while (ptr != NULL) {
         cout << ptr->val << "->";
         ptr = ptr->next;
