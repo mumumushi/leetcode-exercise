@@ -24,12 +24,20 @@ struct ListNode {
 class Solution {
 public:
     ListNode* mergeKLists(vector<ListNode*>& lists) {
-        ListNode* l = NULL;
-
+        /*ListNode* l = NULL;         //链表两两合并
         for (auto i = lists.begin(); i != lists.end(); i++)
             l = merge(l, *i);
-
-        return l;
+        return l;*/
+        if (lists.size() == 0) {        //分治算法
+            return (ListNode*)NULL;
+        }
+        while (lists.size() > 1) {
+            for (int i = 0; i+1 < lists.size(); i++) {
+                lists[i] = merge(lists[i], lists[i+1]);
+                lists.erase(lists.begin()+i+1);
+            }
+        }
+        return lists[0];
     }
 
     ListNode* merge(ListNode* l1, ListNode* l2) {
@@ -62,18 +70,19 @@ public:
 
 
 int main() {
-    ListNode n1(1),n2(4),n3(5),n4(1),n5(3),n6(4),n7(2),n8(6);
+    ListNode n1(1),n2(4),n3(5),n4(-1),n5(5),n6(11),n7(6),n8(10);
     n1.next = &n2;  n2.next = &n3;
     n4.next = &n5;  n5.next = &n6;
     n7.next = &n8;
     vector<ListNode*> lists;
+
     lists.push_back(&n1);
     lists.push_back(&n4);
     lists.push_back(&n7);
     Solution s;
-    s.printList(&n1);
-    s.printList(&n4);
-    s.printList(&n7);
+    for (auto i = lists.begin(); i != lists.end(); i++) 
+        s.printList(*i);
+    cout << "start processing..." << endl;
     ListNode* l = s.mergeKLists(lists);
     s.printList(l);
     return 0;
