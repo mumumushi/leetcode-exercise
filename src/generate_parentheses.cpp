@@ -36,9 +36,8 @@ public:
         }   
 
         if (left >= right) {
-            //string s1 = string(s);
             generate(v, s+"(", left+1, right, n);
-            //可以选择把s的最后一位
+            //因为传进去的s不影响本身，所以不需要恢复现场的操作
             generate(v, s+")", left, right+1, n);
         }
     }
