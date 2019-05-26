@@ -13,6 +13,7 @@ For example, given n = 3, a solution set is:
 */
 #include<iostream>
 #include<vector>
+#include<string>
 using namespace std;
 
 class Solution {
@@ -29,18 +30,22 @@ public:
 
     void generate(vector<string>& v, string s, int left, int right, int n) {
         if (left > n || right > n)    return ;
-        if (left == n && right == n)    v.push_back(s);
+        if (left == n && right == n) {
+            v.push_back(s);
+            return ;
+        }   
 
         if (left >= right) {
-            string s1 = string(s);
+            //string s1 = string(s);
             generate(v, s+"(", left+1, right, n);
-            generate(v, s1+")", left, right+1, n);
+            //可以选择把s的最后一位
+            generate(v, s+")", left, right+1, n);
         }
     }
 };
 
 int main() {
-    int n = 0;
+    int n = 3;
     Solution s;
     vector<string> ans = s.generateParenthesis(n);
     for (auto i = ans.begin(); i != ans.end(); i++) {
